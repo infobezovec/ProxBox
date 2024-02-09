@@ -4,9 +4,6 @@ import random
 from termcolor import colored
 from Creator import File_creator
 
-
-
-#TODO Add unix systems support
 linux_paths = []
 version = '0.1'
 
