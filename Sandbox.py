@@ -1,26 +1,12 @@
 
 import argparse
 import random
+import sys
 from termcolor import colored
 from Creator import File_creator
 
-linux_paths = []
+
 version = '0.1'
-
-def generate_path(file_type, id):
-    path_list = ['']
-
-    if file_type == 'xls':
-        path = path_list[1][id]
-    elif file_type == 'docx':
-        path = path_list[2][id]
-    elif file_type == 'pptx':
-        path = path_list[3][id]
-    elif file_type == 'txt':
-        path = path_list[4][id]
-    elif file_type == 'txt':
-        path = path_list[5][id]
-    return path
 
 #TODO WRITE FUNCTION WICH PLACES FILES AT DIRECTORIES USING SSH/
 def place_files_remotly():
@@ -30,6 +16,7 @@ def place_files_remotly():
 def place_files_localy():
     pass
 
+#TESTED
 def print_logo():
     color = ['green', 'yellow', 'blue', 'magenta', 'cyan']
     print(colored("""
@@ -46,12 +33,26 @@ $$/      $$/        $$$$$$/  $$/   $$/ $$$$$$$/   $$$$$$/  $$/   $$/
     print (colored("ProxMox based all authomatic open-source sandbox", "green", attrs=['bold']))
     print (colored('by USERNAME' + '\t\t\t\t\t\tversion:' + version))
     
-#TODO add help and all args to mode
-def print_help():
-    pass
+#TESTED
+def parce_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", required=True, help='Path to Malware sample')
+    parser.add_argument("-t", type=int, help='Timeout for execution')
+    arg = parser.parse_args()
+    return arg
+
+#TESTED
+def read_file(path):
+    with open(path, 'rb') as file:
+        sample = file.read()
+    return sample
 
 def main():
     print_logo()
+    argv = parce_arguments()
+    timeout = argv.t
+    file_path = argv.f
+
 
 if __name__ == "__main__":
     main()
