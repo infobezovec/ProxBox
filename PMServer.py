@@ -19,7 +19,7 @@ class sandbox:
     
     def get_vm_state(self, vm_id):
         vm = self.proxmox.nodes(self.node).qemu(vm_id).status.current.get()
-        print(vm['status'])
+        print(vm['status']) 
 
 
     def start_vm(self, vm_id):
