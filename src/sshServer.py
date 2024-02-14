@@ -19,18 +19,19 @@ class SHServer:
             self.log.finfo("SSH/SCP - Connected")
         except:
             err = 'SSH/SCP Connection error'
-            self.log.cerror(err)
-            self.log.ferror(err)
+            self.log.werror(err)
             exit()
     
     def cmd_exec(self, cmd):
         try:
             stdin, stdout, stderr = self.ssh.exec_command(cmd)
-            self.log.finfo('EXECUTED-[' + self.host + ']:' + cmd)
+            self.log.finfo('EXECUTED-[' + self.host + ']:' + cmd + '[RESULT]: ' + str(stdout))
         except:
-            self.log.ferror(Exception)
+            self.log.werror("EXECUTE ERROR" + str(stderr))
+            
         for line in stdout:
             print(line.strip())
+        return stderr
 
     def send_data(self, data, rem_path):
         file_obj = BytesIO(data)
@@ -39,8 +40,7 @@ class SHServer:
             self.log.fsuc('LOADED DATA-[' + self.host + ']:' + rem_path)
         except:    
             err = 'SSH/SCP Send data error'
-            self.log.cerror(err)
-            self.log.ferror(err)
+            self.log.werror(err)
 
     def send_file(self, file, rem_path):
         try:
@@ -48,8 +48,7 @@ class SHServer:
             self.log.fsuc('LOADED FILE-[' + self.host + ']:' + file + ' -TO-> ' + rem_path)
         except:
             err = 'SSH/SCP Send file error'
-            self.log.cerror(err)
-            self.log.ferror(err)
+            self.log.werror(err)
 
     def download_file(self, rem_path, local_path):
         try:
@@ -57,14 +56,15 @@ class SHServer:
             self.log.fsuc('DOWNLOADED FILE-[' + self.host + ']:' + rem_path + ' -TO-> ' + local_path + '.dwnl')
         except:
             err = 'SSH/SCP Download error'
-            self.log.cerror(err)
-            self.log.ferror(err)
+            self.log.werror(err)
 
 
-sshel = SHServer('192.168.100.9', 'user', '123456')
-#sshel.cmd_exec('ls')
-file = open("pb.log", 'rb')
-b = file.read()
-sshel.send_file('Sandbox.py', '~/test2.txt')
-#sshel.cmd_exec('ls')
-sshel.download_file("~/test2.txt", "downloaded.txt")
+    def run_file(self, rem_path, args):
+        self.cmd_exec(f'./{rem_path} {args}')
+        pass
+
+    def shut_sys(self, timeout=10):
+        self.cmd_exec(f"shutdown /s /t {timeout}")
+
+sshel = SHServer('192.168.0.66', 'Maksim', '123456')
+sshel.shut_sys(15)

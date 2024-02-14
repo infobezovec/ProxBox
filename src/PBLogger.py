@@ -54,3 +54,7 @@ class Logger:
     def csuc(self, message):
         timestamp = datetime.now()
         self.print_cout('+[SUCCS]-|' + str(timestamp.strftime("%Y-%m-%d %H:%M")) + '|- ' + message +'\n', 'sucs')
+
+    def werror(self, message):
+        self.cerror(message)
+        self.ferror(message)

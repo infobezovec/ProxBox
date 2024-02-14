@@ -5,15 +5,12 @@ import time
 
 warnings.filterwarnings('ignore')
 
-proxmox_server = '192.168.0.200'
-proxmox_user = 'PAPI@pve'
-proxmox_passwd = 'forvot-texDe5-xivfus'
-node = 'sandbox'
+
 
 
 
 class sandbox:
-    def __init__(self) -> None:
+    def __init__(self):
         self.proxmox = ProxmoxAPI(proxmox_server, user=proxmox_user, password=proxmox_passwd, verify_ssl=False, service='PVE')
         self.node = node
     
@@ -31,8 +28,7 @@ class sandbox:
         self.proxmox.nodes(self.node).qemu(vm_id).status.stop.post()
 
     def vm_from_template(self, template):
-        
-
+        pass
 
 
     def get_all_vm_state(self):
@@ -51,7 +47,7 @@ class sandbox:
                 #        break
                 #    i += 1
 
-def change_net_settings(proxmox, node, vm_id, iface):
+    def change_net_settings(self,proxmox, node, vm_id, iface):
     vm = proxmox.nodes(node).qemu.get(vm_id)
     interface_id = vm['networks'][iface]['interface']
     network_settings = {

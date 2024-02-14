@@ -1,0 +1,20 @@
+sandbox:
+  mode: standart
+  logfile: pb.log
+  agents: DW
+  prepareOS: True
+
+proxmox:
+  user: user@pve
+  password: password
+  host: 10.0.0.10
+  node: sandbox
+  template: VM1
+
+guest:
+  user: User
+  password: 123456
+  os-type: Win10
+
+
+
