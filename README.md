@@ -6,6 +6,11 @@ This project is aimed at automated testing of malware and collection of primary 
 
 !ATTENTION! This project is not aimed at responding to and identifying malware. The main task is to facilitate and speed up the work of the analyst through automation!
 
+### Sandbox architecture:
+<img src="docs/Architecture.png">
+<h4 align=center>Common sandbox architecture</h4>
+
+### Networking:
 
 ### How to use:
 
